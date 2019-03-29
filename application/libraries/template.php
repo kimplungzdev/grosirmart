@@ -5,8 +5,9 @@ class template
 	public function admin($views, $data = '')
 	{
 		$this->CI =& get_instance();
-		$this->CI->load->view('header');
-		$this->CI->load->view('menu');
-		return $this->CI->load->view($views, $data);
+		$data['sidebar_menu'] = side_bar_menu($this->CI->session->userdata('KdRole'));
+		$this->CI->load->view('header', $data);
+		$this->CI->load->view($views, $data);
+		$this->CI->load->view('footer');
 	}
 }

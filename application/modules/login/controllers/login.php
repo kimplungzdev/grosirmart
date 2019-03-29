@@ -29,12 +29,11 @@ class login extends MX_Controller
             {
                 foreach ($data_user->result_array() as $key => $value) {
                     $data['Username'] = $value['Username'];
-                    $data['Password'] = $value['Password'];
                     $data['KdRole'] = $value['KdRole'];           
                 }    
 
                 $this->session->set_userdata($data); 
-                redirect('admin_home');             
+                redirect('admin_home/Dashboard');             
 			}
 			else
 			{
