@@ -12,5 +12,4 @@ class Dashboard extends Admin_Controller
 		$data['halo'] = 'halo';
 		$this->template->admin('dashboard', $data);
 	}
-
 }

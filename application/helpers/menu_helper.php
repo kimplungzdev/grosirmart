@@ -44,7 +44,7 @@ if (!function_exists('side_bar_menu'))
 				{
 					$menunav .= '
 					<li>
-						<a href="'.base_url().$value->UrlMenu.'">
+						<a href="'.base_url().'admin_home/'.$value->UrlMenu.'">
         					<i class="fa fa-circle-o"></i><span>'.$value->NamaMenu.'</span>
 						</a>';	
 				}
@@ -59,7 +59,7 @@ if (!function_exists('side_bar_menu'))
             				</span>
         				</a>'; 
 				}
-				
+
 				$menunav .= side_bar_menu($KdRole, $value->KdMenu);
 				$menunav .= '</li>';	
 			}
