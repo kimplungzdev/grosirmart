@@ -43,7 +43,7 @@ if (!function_exists('side_bar_menu'))
 				if ($value->UrlMenu != '#')
 				{
 					$menunav .= '
-					<li>
+					<li id="menu-'.$value->KdMenu.'">
 						<a href="'.base_url().'admin_home/'.$value->UrlMenu.'">
         					<i class="fa fa-circle-o"></i><span>'.$value->NamaMenu.'</span>
 						</a>';	
@@ -51,7 +51,7 @@ if (!function_exists('side_bar_menu'))
 				else
 				{
 					$menunav .= '
-					<li class="treeview">
+					<li id="menu-'.$value->KdMenu.'" class="treeview">
 					    <a href="#">
             				<i class="fa fa-share"></i><span>'.$value->NamaMenu.'</span>
             				<span class="pull-right-container">

@@ -99,3 +99,65 @@ function list_breadcump($KdMenu, $KdParent)
 
 	return $output;
 }
+
+function active_menu($UrlMenu)
+{
+	$CI =& get_instance();
+
+	$query = '
+	SELECT KdMenu, KdParent, NamaMenu, UrlMenu 
+	FROM m_menu
+	WHERE UrlMenu = \''.$UrlMenu.'\'
+	LIMIT 1
+	';
+
+	$data = $CI->db->query($query)->row_array();
+	
+	$output = '  
+	<script>
+	$(document).ready(function(){
+		'.list_menu_active($data['KdMenu'], $data['KdParent']).'
+	});
+	</script>';
+
+  	return $output;
+}
+
+function list_menu_active($KdMenu, $KdParent)
+{
+	$CI =& get_instance();
+	$output = '';
+	$where = ' WHERE KdMenu = '.$KdParent;
+
+	if (empty($KdParent))
+	{
+		$where = ' WHERE KdMenu IS NULL';
+	}
+
+	$query_parent = '
+	SELECT KdMenu, KdParent, NamaMenu, UrlMenu
+	FROM m_menu '.$where;
+
+	$data_parent = $CI->db->query($query_parent);
+
+	$query_child = '
+	SELECT KdMenu, KdParent, NamaMenu, UrlMenu 
+	FROM m_menu
+	WHERE KdMenu = '.$KdMenu;
+
+	$data_child = $CI->db->query($query_child)->row_array();	
+
+	if ($data_parent->num_rows() > 0)
+	{
+		$data_parent = $data_parent->row_array();	
+		$output .= list_menu_active($data_parent['KdMenu'], $data_parent['KdParent']);
+		$output .= '$("#menu-'.$data_child['KdMenu'].'").parent().show();';
+		$output .= '$("#menu-'.$data_child['KdMenu'].'").addClass("active");';
+ 	}
+	else
+	{
+		$output .= '$("#menu-'.$data_child['KdMenu'].'").addClass("menu-open");';
+	}
+
+	return $output;
+}
